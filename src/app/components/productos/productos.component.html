@@ -1,0 +1,77 @@
+<div *ngIf=' vista === "L"'>
+  <table class="table table-striped table-primary">
+    <thead class="text-center bg-primary">
+      <th>Producto Id</th>
+      <th>Producto ProductoNombre</th>
+      <th>Producto Fecha Alta</th>
+      <th>Producto Stock</th>
+    </thead>
+    <tbody class="text-center">
+      <tr *ngFor='let producto of productos'>
+        <td>{{producto.ProductoID}}</td>
+        <td>{{producto.ProductoNombre}}</td>
+        <td>{{producto.ProductoFechaAlta | date: 'dd/MM/yyyy'}}</td>
+        <td>{{producto.ProductoStock }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="col text-center">
+    <button type="button" class="btn btn-outline-primary" title="Agregar" placeholder="agregar" (click)="agregar()">Agregar</button>
+  </div>
+</div>
+<div class="bg-light" *ngIf='vista === "A"'>
+  <form name="formRegistroProductos" [formGroup]="formRegistroProductos">
+    <div class="row form-group">
+      <label for="ProductoNombre" class='col-form-label col-sm-1'>Nombre</label>
+      <div class="text-center">
+        <input type="text" formControlName="ProductoNombre" class="form-control"
+      [ngClass]="{'is-invalid': formRegistroProductos.controls.ProductoNombre.errors &&
+       (formRegistroProductos.controls.ProductoNombre.touched || submited)}">
+      </div>
+      <div class="validacion">
+        <span class="text-danger" *ngIf='formRegistroProductos.controls.ProductoNombre.errors?.required &&(submited || formRegistroProductos.controls.ProductoNombre.touched)'>*datoRequerido</span>
+      </div>
+      <div class="validacion">
+        <span class="text-danger" *ngIf='(formRegistroProductos.controls.ProductoNombre.errors?.minlength || formRegistroProductos.controls.ProductoNombre.errors?.maxlength) &&(submited || formRegistroProductos.controls.ProductoNombre.touched)'>*datoRequerido de 4 a 50 caracteres</span>
+      </div>
+    </div>
+
+    <div class="row form-group">
+      <label for="ProductoStock" class='col-form-label col-sm-1'>Producto Stock</label>
+      <div class="text-center">
+        <input type="text" formControlName="ProductoStock" class="form-control"
+      [ngClass]="{'is-invalid': formRegistroProductos.controls.ProductoStock.errors &&
+       (formRegistroProductos.controls.ProductoStock.touched || submited)}">
+      </div>
+      <div class="validacion">
+        <span class="text-danger" *ngIf='formRegistroProductos.controls.ProductoStock.errors?.required &&(submited || formRegistroProductos.controls.ProductoStock.touched)'>*datoRequerido</span>
+      </div>
+      <div class="validacion">
+        <span class="text-danger" *ngIf='formRegistroProductos.controls.ProductoStock.errors?.pattern &&(submited || formRegistroProductos.controls.ProductoStock.touched)'>*datoRequerido del tipo numerico</span>
+      </div>
+    </div>
+
+    <div class="row form-group">
+      <label for="ProductoFechaAlta" class='col-form-label col-sm-1'>Fecha Alta</label>
+      <div class="text-center">
+        <input type="text" formControlName="ProductoFechaAlta" class="form-control"
+      [ngClass]="{'is-invalid': formRegistroProductos.controls.ProductoFechaAlta.errors &&
+       (formRegistroProductos.controls.ProductoFechaAlta.touched || submited)}">
+      </div>
+      <div class="validacion">
+        <span class="text-danger" *ngIf='formRegistroProductos.controls.ProductoFechaAlta.errors?.required &&(submited || formRegistroProductos.controls.ProductoFechaAlta.touched)'>*datoRequerido</span>
+      </div>
+      <div class="validacion">
+        <span class="text-danger" *ngIf='formRegistroProductos.controls.ProductoFechaAlta.errors?.pattern &&(submited || formRegistroProductos.controls.ProductoFechaAlta.touched)'>*datoRequerido del tipo numerico</span>
+      </div>
+    </div>
+    <div class="row text-center offset-sm-6">
+      <div class="text-center justify">
+        <button type="button" class="btn btn-outline-primary" title="Agregar" placeholder="agregar" (click)="insertar()">Insertar</button>
+      </div>
+      <div class="text-center">
+        <button type="button" class="btn btn-outline-primary" title="Volver" placeholder="volver al listado" (click)="volver()">Volver</button>
+      </div>
+    </div>
+  </form>
+</div>
